@@ -1,0 +1,11 @@
+1. CMS page
+fields- name,title,slug(will be unique),link(not mandatory),short description(rich text editor), description(rich text editor)
+2. latest news
+publish news date,expire date, title, link, description
+3. Online enquiry form data(show data where user will be submit data from website fronted) ---- view only
+4. upload file and show files
+category,filename,link,description
+5. show "Grievances" data which will be come from website.
+6. upload customer data --- using form and csv and excel
+fields: firstname,lastname,email,mobile,dob,anniversary,issms(yes,no),isemail('yes','no')
+7. contact form data

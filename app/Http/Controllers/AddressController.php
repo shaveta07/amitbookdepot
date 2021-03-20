@@ -1,0 +1,133 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Address;
+use Auth;
+use App\District;
+use App\State;
+
+class AddressController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        if($request->state)
+        {
+            $state=State::where('id',$request->state)->first();
+            $statename=$state->name;
+
+        }
+        if($request->district)
+        {
+            $district=District::where('id',$request->district)->first();
+            $districtname=$district->DistrictName;
+
+        }
+        $address = new Address;
+        $address->user_id = Auth::user()->id;
+        $address->name = $request->name;
+        $address->father_name = $request->father_name;
+        $address->address = $request->address;
+        $address->tehsil = $request->tehsil;
+        $address->country = $request->country;
+        $address->district = $districtname;
+        $address->state = $statename;
+        $address->landmark = $request->landmark;
+        $address->postal_code = $request->postal_code;
+        $address->phone = $request->phone;
+        $address->email = $request->email;
+        $address->save();
+
+        return back();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $address = Address::findOrFail($id);
+        if(!$address->set_default){
+            $address->delete();
+            return back();
+        }
+        flash('Default address can not be deleted')->warning();
+        return back();
+    }
+
+    public function set_default($id){
+        foreach (Auth::user()->addresses as $key => $address) {
+            $address->set_default = 0;
+            $address->save();
+        }
+        $address = Address::findOrFail($id);
+        $address->set_default = 1;
+        $address->save();
+
+        return back();
+    }
+}

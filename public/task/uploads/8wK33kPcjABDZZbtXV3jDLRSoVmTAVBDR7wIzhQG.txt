@@ -1,0 +1,15 @@
+New interface:
+1. Add/edit/delete Courier Service (done)
+Courier Name, Link
+
+2. Here a new column will be add. When you will click the update tracking then Modal will be open (done)
+There will be textbox for tracking ID, dropdown for product,discription. By default all product will be selected. 
+I can add multiple tracking ID but only one tracking ID against 1 Product. Suppose I have 4 products called 
+A,B,C,D. I have added tracking ID for A and B. when I will add next tracking ID then A&B will be disable for 
+another order.(Total sales, inhouse order)
+OLD tracking ID will be display in same model on top then form will be appear for tracking.(done)
+
+3. Tracking ID will be send on SMS and Email ID to customer. tracking ID will be visible on customer category also. (done)
+
+4. Duplicate entry is creating during create customer from AR,AP,Prebooking,AR Form. (done)
+
